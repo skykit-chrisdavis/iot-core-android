@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".MainActivity"
+		>
+
+	<LinearLayout
+			android:id="@+id/accessView"
+			android:background="#f5f3f3"
+			android:orientation="vertical"
+			android:layout_margin="16dp"
+			android:padding="8dp"
+			android:layout_centerInParent="true"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		<TextView
+				android:layout_margin="4dp"
+				tools:text="Devie-123436"
+				style="@style/Base.TextAppearance.AppCompat.Title"
+				android:id="@+id/deviceId"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+		<EditText
+				android:layout_margin="4dp"
+				android:id="@+id/accessCodeEdit"
+				android:hint="@string/enter_access_code"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="number"
+		/>
+		<Button
+				android:id="@+id/registerDevice"
+				android:layout_margin="4dp"
+				android:text="@string/register_device"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+	</LinearLayout>
+
+
+	<LinearLayout
+			android:padding="8dp"
+			android:id="@+id/registeredView"
+			android:visibility="gone"
+			tools:visibility="visible"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<RelativeLayout
+				style="@style/detailsContainer">
+			<ImageView
+					android:id="@+id/deviceImage"
+					app:srcCompat="@drawable/cellphone_settings_variant"
+					style="@style/sideIcon" android:contentDescription="@string/device_id"/>
+
+			<LinearLayout
+					android:layout_margin="4dp"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/deviceImage"
+					android:orientation="vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<TextView
+						android:textSize="18sp"
+						android:textStyle="bold"
+						android:id="@+id/deviceName"
+						style="@style/detailValue"/>
+				<TextView
+						style="@style/detailLabel"
+						android:text="@string/serial"
+				/>
+				<TextView
+						style="@style/detailValue"
+						android:id="@+id/deviceSerial"
+				/>
+				<TextView
+						style="@style/detailLabel"
+						android:text="@string/device_id"
+				/>
+				<TextView
+						style="@style/detailValue"
+						android:id="@+id/deviceDetailId"
+				/>
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<RelativeLayout
+				style="@style/detailsContainer">
+			<ImageView
+					style="@style/sideIcon"
+					android:id="@+id/iotCoreImage"
+					app:srcCompat="@drawable/cloud_iot_core"
+			/>
+			<LinearLayout
+					android:layout_margin="4dp"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/iotCoreImage"
+					android:orientation="vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<TextView
+						style="@style/detailLabel"
+						android:text="Publishing Rate:"
+				/>
+				<TextView
+						android:id="@+id/publishedRate"
+						style="@style/detailValue"/>
+				<TextView
+						style="@style/detailLabel"
+						android:text="Published:"
+				/>
+				<TextView
+						android:id="@+id/statePublishedCount"
+						style="@style/detailValue"/>
+				<TextView
+						android:id="@+id/telemetryPublishedCount"
+						style="@style/detailValue"/>
+				<TextView
+						style="@style/detailValue"
+						android:id="@+id/iotCoreLastPublished"
+				/>
+			</LinearLayout>
+		</RelativeLayout>
+
+
+	</LinearLayout>
+
+
+</RelativeLayout>

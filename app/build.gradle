@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.agosto.clouldiotcore"
+        minSdkVersion 21
+        targetSdkVersion 28
+		versionCode = baseVersionCode
+		versionName = baseVersionName
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    def jsonFile = file('config.json')
+    def parsedJson = new groovy.json.JsonSlurper().parseText(jsonFile.text)
+    def firebaseProjectId = parsedJson.projectId
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "FIREBASE_PROJECT_ID", "\"$firebaseProjectId\""
+        }
+
+        debug {
+            buildConfigField "String", "FIREBASE_PROJECT_ID", "\"$firebaseProjectId\""
+        }
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	implementation project(":cloudiotcore")
+	implementation 'androidx.appcompat:appcompat:1.0.2'
+	implementation 'androidx.core:core-ktx:1.0.1'
+	implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
+	implementation 'androidx.recyclerview:recyclerview:1.0.0'
+	implementation 'com.github.florent37:runtime-permission-kotlin:1.1.0'
+	implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+	implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+	testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

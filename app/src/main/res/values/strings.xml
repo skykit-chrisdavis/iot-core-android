@@ -1,0 +1,10 @@
+<resources>
+	<string name="app_name">Clould Iot Core</string>
+	<string name="enter_access_code">Enter Access Code</string>
+	<string name="register_device">Register Device</string>
+	<string name="serial">Serial:</string>
+	<string name="device_id">Device Id:</string>
+	<string name="premission_reason">Requires this permission to read the serial number of your device. If you reject
+		this request a random serial will be generated.
+	</string>
+</resources>
