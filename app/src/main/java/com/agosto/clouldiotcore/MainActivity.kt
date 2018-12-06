@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
         val token = accessCodeEdit.text.toString()
         val cert  = "-----BEGIN CERTIFICATE-----\n" + deviceKeys.encodedCertificate() + "-----END CERTIFICATE-----\n"
-        val functionsApi = FunctionsApi.create(CLOUD_FUNCTIONS_URL,token)
+        val functionsApi =  FunctionsApi.create(CLOUD_FUNCTIONS_URL,token)
         val sub = functionsApi.registerIotDevice(DeviceRequest(deviceId,cert))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe( {
