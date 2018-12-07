@@ -79,7 +79,7 @@ object IotCoreMqtt {
      * @return topic string
      */
     fun telemetryTopic(deviceId: String): String {
-        return String.format("/devices/%s/events", deviceId)
+        return "/devices/$deviceId/events"
     }
 
     /**
@@ -88,7 +88,7 @@ object IotCoreMqtt {
      * @return topic string
      */
     fun configTopic(deviceId: String): String {
-        return String.format("/devices/%s/config", deviceId)
+        return "/devices/$deviceId/config"
     }
 
     /**
@@ -97,7 +97,11 @@ object IotCoreMqtt {
      * @return topic string
      */
     fun stateTopic(deviceId: String): String {
-        return String.format("/devices/%s/state", deviceId)
+        return "/devices/$deviceId/state"
+    }
+
+    fun commandTopic(deviceId: String): String {
+        return "/devices/$deviceId/commands/#"
     }
 
 }
