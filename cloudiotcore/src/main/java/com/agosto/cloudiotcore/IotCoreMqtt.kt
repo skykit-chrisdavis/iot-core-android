@@ -82,6 +82,10 @@ object IotCoreMqtt {
         return "/devices/$deviceId/events"
     }
 
+    fun telemetryTopic(deviceId: String, subTopic: String): String {
+        return "/devices/$deviceId/events/$subTopic"
+    }
+
     /**
      * device config topic to receive device config settings
      * @param deviceId id of device in registry
