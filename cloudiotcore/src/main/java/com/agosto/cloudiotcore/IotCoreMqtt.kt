@@ -17,7 +17,7 @@ object IotCoreMqtt {
         // DateTime now = new DateTime();
         val rightNow = Calendar.getInstance()
         val now = rightNow.time
-        rightNow.add(Calendar.MINUTE, 20)
+        rightNow.add(Calendar.MINUTE, 60)
         val exp = rightNow.time
         // Create a JWT to authenticate this device. The device will be disconnected after the token
         // expires, and will have to reconnect with a new token. The audience field should always be set
