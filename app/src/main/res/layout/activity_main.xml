@@ -58,7 +58,7 @@
 					style="@style/sideIcon" android:contentDescription="@string/device_id"/>
 
 			<LinearLayout
-					android:layout_margin="4dp"
+					android:layout_margin="8dp"
 					android:layout_centerVertical="true"
 					android:layout_toRightOf="@id/deviceImage"
 					android:orientation="vertical"
@@ -89,43 +89,65 @@
 
 		</RelativeLayout>
 
-		<RelativeLayout
-				style="@style/detailsContainer">
+
+		<LinearLayout android:id="@+id/deviceState" style="@style/detailsContainer" android:orientation="horizontal">
+
 			<ImageView
-					style="@style/sideIcon"
-					android:id="@+id/iotCoreImage"
-					app:srcCompat="@drawable/cloud_iot_core"
-			/>
-			<LinearLayout
-					android:layout_margin="4dp"
-					android:layout_centerVertical="true"
-					android:layout_toRightOf="@id/iotCoreImage"
-					android:orientation="vertical"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-				<TextView
-						style="@style/detailLabel"
-						android:text="Publishing Rate:"
-				/>
-				<TextView
-						android:id="@+id/publishedRate"
-						style="@style/detailValue"/>
-				<TextView
-						style="@style/detailLabel"
-						android:text="Published:"
-				/>
-				<TextView
-						android:id="@+id/statePublishedCount"
-						style="@style/detailValue"/>
-				<TextView
-						android:id="@+id/telemetryPublishedCount"
-						style="@style/detailValue"/>
-				<TextView
-						style="@style/detailValue"
-						android:id="@+id/iotCoreLastPublished"
-				/>
-			</LinearLayout>
-		</RelativeLayout>
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:src="@drawable/cloud_iot_core"
+					/>
+			<TextView android:text="Device State" style="@style/buttonLabel"/>
+
+		</LinearLayout>
+
+		<LinearLayout android:id="@+id/warningLog" style="@style/detailsContainer" android:orientation="horizontal">
+
+			<ImageView
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:src="@drawable/alert"
+					android:tint="#f44336"/>
+
+			<TextView style="@style/buttonLabel" android:text="Warn"/>
+
+		</LinearLayout>
+
+		<LinearLayout android:id="@+id/infoLog" style="@style/detailsContainer" android:orientation="horizontal">
+
+			<ImageView
+
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:src="@drawable/information"
+					android:tint="#FFC107"/>
+
+			<TextView style="@style/buttonLabel" android:text="Info"/>
+
+		</LinearLayout>
+
+		<LinearLayout android:id="@+id/debugLog" style="@style/detailsContainer" android:orientation="horizontal">
+			<ImageView
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:src="@drawable/alpha_d_circle"
+					android:tint="#2E7D32"/>
+
+			<TextView style="@style/buttonLabel" android:text="Debug"/>
+
+		</LinearLayout>
+
+		<LinearLayout android:id="@+id/verboseLog" style="@style/detailsContainer" android:orientation="horizontal">
+
+			<ImageView
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:src="@drawable/alpha_v_circle"
+					android:tint="#000"/>
+
+			<TextView style="@style/buttonLabel" android:text="Verbose"/>
+
+		</LinearLayout>
 
 
 	</LinearLayout>

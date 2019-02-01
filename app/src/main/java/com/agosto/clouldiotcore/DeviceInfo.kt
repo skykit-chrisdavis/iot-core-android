@@ -39,7 +39,7 @@ object DeviceInfo {
         val pref = PreferenceManager.getDefaultSharedPreferences(context);
 		var serial = pref.getString("serialNumber","")?:""
 		if(serial.isEmpty()) {
-			serial = "SK${deviceNum()}"
+			serial = "SS${deviceNum()}"
 			pref.edit {
                 putString("serialNumber",serial)
             }
@@ -64,13 +64,18 @@ object DeviceInfo {
         return memoryInfo.availMem
     }
 
-}
-
-
-class DeviceState(context: Context) {
-    val serial = DeviceInfo.serialNumber(context)
-    val model = Build.MODEL
-    val manufacturer = Build.MANUFACTURER
-    val batteryLevel = DeviceInfo.battery(context)
-    val memory = DeviceInfo.memory(context)
+    fun devicePrefix(): String {
+        return if (Build.MODEL.isEmpty()) {
+            "Device"
+        } else {
+            val model = Build.MODEL.replace(" ","").toLowerCase()
+            val re = Regex("[^A-Za-z0-9 ]")
+            val pre = re.replace(model, "")
+            if(pre[0].isLetter()) {
+                pre
+            } else {
+                "Device-$pre"
+            }
+        }
+    }
 }
