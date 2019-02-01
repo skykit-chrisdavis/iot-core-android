@@ -9,6 +9,8 @@ import com.agosto.cloudiotcore.DeviceRequestResult
 import com.agosto.cloudiotcore.FunctionsApi
 import com.google.gson.Gson
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 import io.reactivex.disposables.Disposable
 
 class IoTCoreViewModel(application: Application): AndroidViewModel(application) {
@@ -17,6 +19,15 @@ class IoTCoreViewModel(application: Application): AndroidViewModel(application) 
     var iotCoreClient: IotCoreClient? = null
     var onConfigSub: Disposable? = null
     var deviceConfig = DeviceConfig()
+
+    lateinit var eventEmitter: ObservableEmitter<DeviceEvent>
+    val onEvent = Observable.create(ObservableOnSubscribe<DeviceEvent> {
+        eventEmitter = it
+    }).publish()
+
+    init {
+        onEvent.connect()
+    }
 
     fun provision(iotCoreClient: IotCoreClient, functionsApi: FunctionsApi): Observable<Boolean> {
         this.iotCoreClient = iotCoreClient
@@ -55,12 +66,13 @@ class IoTCoreViewModel(application: Application): AndroidViewModel(application) 
                 is IotConfig -> {
                     deviceConfig =  Gson().fromJson(it.payload, DeviceConfig::class.java)
                     setLoggingLevel(deviceConfig)
+                    eventEmitter.onNext(ConfigUpdate(deviceConfig))
                 }
                 is IotCommand -> {
-                    // todo: refactor this?  maybe remove PlayerMessage and add it to provisioning events
                     val deviceCommand = Gson().fromJson(it.payload, DeviceCommand::class.java)
                     if(deviceCommand.reset) {
-
+                        reset()
+                        eventEmitter.onNext(DeviceDelete)
                     }
                 }
                 is IotReconnecting -> {
@@ -133,6 +145,24 @@ class DeviceState(context: Context) {
     val loggingLevel = IoTLog.level
 }
 
-class DeviceConfig(val loggingEnabled: Boolean=false, val loggingLevel:Int=0)
+class DeviceConfig(val loggingEnabled: Boolean=false, val loggingLevel:Int=0) {
+    fun detailsText(): String {
+        if(loggingEnabled) {
+            return when (loggingLevel) {
+                0 -> "None"
+                1 -> "Warnings"
+                2 -> "Info"
+                3 -> "Debug"
+                4 -> "Verbose"
+                else -> "None"
+            }
+        }
+        return "Disabled"
+    }
+}
 
 class DeviceCommand(val reset: Boolean=false)
+
+sealed class DeviceEvent
+data class ConfigUpdate(val deviceConfig: DeviceConfig) : DeviceEvent()
+object DeviceDelete : DeviceEvent()

@@ -85,6 +85,14 @@
 						style="@style/detailValue"
 						android:id="@+id/deviceDetailId"
 				/>
+				<TextView
+						style="@style/detailLabel"
+						android:text="Logging"
+				/>
+				<TextView
+						style="@style/detailValue"
+						android:id="@+id/loggingDetails"
+				/>
 			</LinearLayout>
 
 		</RelativeLayout>

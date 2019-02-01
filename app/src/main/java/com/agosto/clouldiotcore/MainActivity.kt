@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         deviceKeys = DeviceKeys(this)
         ioTCoreViewModel= ViewModelProviders.of(this).get(IoTCoreViewModel::class.java)
+        ioTCoreViewModel.onEvent
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {event->onDeviceEvent(event)},
+                {error->IoTLog.w(TAG,"IoT Event error: $error")})
+
         registerDevice.setOnClickListener(this::registerIotDevice)
         IoTLog.i(TAG,"onCreate")
         warningLog.setOnClickListener {
@@ -47,6 +53,17 @@ class MainActivity : AppCompatActivity() {
         }
         deviceState.setOnClickListener {
             ioTCoreViewModel.publishState(DeviceState(this))
+        }
+    }
+
+    private fun onDeviceEvent(event: DeviceEvent) {
+        when(event) {
+            is ConfigUpdate -> {
+                updateDeviceDetails(event.deviceConfig)
+            }
+            is DeviceDelete -> {
+                checkIotCore()
+            }
         }
     }
 
@@ -98,10 +115,11 @@ class MainActivity : AppCompatActivity() {
         registeredView.isGone = false
     }
 
-    fun updateDeviceDetails() {
+    fun updateDeviceDetails(deviceConfig: DeviceConfig = DeviceConfig()) {
         deviceName.text = "${Build.MANUFACTURER} ${Build.MODEL}"
         deviceSerial.text = DeviceInfo.serialNumber(this)
         deviceDetailId.text = deviceId
+        loggingDetails.text = deviceConfig.detailsText()
     }
 
     fun checkForSerialPermissions() {
@@ -139,7 +157,6 @@ class MainActivity : AppCompatActivity() {
         IoTLog.i(TAG,"registering new device")
         provisionDevice(accessCodeEdit.text.toString())
     }
-
 
     fun hideKeyboard() {
         val view = findViewById<View>(android.R.id.content)
