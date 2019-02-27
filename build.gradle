@@ -10,7 +10,7 @@ buildscript {
 	def versionBuild = 1
 
 	ext.baseVersionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-	ext.baseVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+	ext.baseVersionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
 
 	repositories {
         google()
