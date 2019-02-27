@@ -17,9 +17,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    def jsonFile = file('config.json')
-    def parsedJson = new groovy.json.JsonSlurper().parseText(jsonFile.text)
-    def firebaseProjectId = parsedJson.projectId
+    def firebaseProjectId = ""
+    try {
+        def jsonFile = file('config.json')
+        def parsedJson = new groovy.json.JsonSlurper().parseText(jsonFile.text)
+        firebaseProjectId = parsedJson.projectId
+    } catch (e) {
+        firebaseProjectId = "mising config"
+    }
 
     buildTypes {
         release {
