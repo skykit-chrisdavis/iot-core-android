@@ -13,11 +13,11 @@ object IotCoreMqtt {
 
     /** Create a Cloud IoT Core JWT for the given project id, signed with the given private key.  */
     @Throws(Exception::class)
-    private fun createJwtRsa(projectId: String, privateKey: PrivateKey): String {
+    private fun createJwtRsa(projectId: String, privateKey: PrivateKey, timeUnit: Int = Calendar.MINUTE, timeValue: Int=60): String {
         // DateTime now = new DateTime();
         val rightNow = Calendar.getInstance()
         val now = rightNow.time
-        rightNow.add(Calendar.MINUTE, 60)
+        rightNow.add(timeUnit, timeValue)
         val exp = rightNow.time
         // Create a JWT to authenticate this device. The device will be disconnected after the token
         // expires, and will have to reconnect with a new token. The audience field should always be set
@@ -41,7 +41,7 @@ object IotCoreMqtt {
      * @throws Exception
      */
     @Throws(Exception::class)
-    fun connect(projectId: String, registryId: String, deviceId: String, privateKey: PrivateKey): MqttClient {
+    fun connect(projectId: String, registryId: String, deviceId: String, privateKey: PrivateKey, timeUnit: Int = Calendar.MINUTE, timeValue: Int=60): MqttClient {
         val mqttBridgeHostname = "mqtt.googleapis.com"
         val cloudRegion = "us-central1"
         val mqttBridgePort: Short = 8883
