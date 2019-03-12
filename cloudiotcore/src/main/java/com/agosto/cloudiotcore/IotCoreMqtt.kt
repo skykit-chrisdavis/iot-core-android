@@ -63,7 +63,7 @@ object IotCoreMqtt {
         // to authorize the device.
         connectOptions.userName = "unused"
 
-        connectOptions.password = createJwtRsa(projectId, privateKey).toCharArray()
+        connectOptions.password = createJwtRsa(projectId, privateKey, timeUnit, timeValue).toCharArray()
 
         // Create a client, and connect to the Google MQTT bridge.
         val client = MqttClient(mqttServerAddress, mqttClientId, MemoryPersistence())

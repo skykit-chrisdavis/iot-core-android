@@ -6,8 +6,8 @@ buildscript {
 
 	def versionMajor = 0
 	def versionMinor = 5
-	def versionPatch = 1
-	def versionBuild = 1
+	def versionPatch = 2
+	def versionBuild = 2
 
 	ext.baseVersionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
 	ext.baseVersionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
@@ -17,7 +17,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
