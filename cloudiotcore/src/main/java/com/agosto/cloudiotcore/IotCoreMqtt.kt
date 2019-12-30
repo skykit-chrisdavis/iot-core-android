@@ -41,10 +41,10 @@ object IotCoreMqtt {
      * @throws Exception
      */
     @Throws(Exception::class)
-    fun connect(projectId: String, registryId: String, deviceId: String, privateKey: PrivateKey, timeUnit: Int = Calendar.MINUTE, timeValue: Int=60): MqttClient {
+    fun connect(projectId: String, registryId: String, deviceId: String, privateKey: PrivateKey, timeUnit: Int = Calendar.MINUTE, timeValue: Int=60, mqttBridgePort: Short = 8883): MqttClient {
         val mqttBridgeHostname = "mqtt.googleapis.com"
         val cloudRegion = "us-central1"
-        val mqttBridgePort: Short = 8883
+
         // Build the connection string for Google's Cloud IoT Core MQTT server.
         val mqttServerAddress = String.format("ssl://%s:%s", mqttBridgeHostname, mqttBridgePort)
 
