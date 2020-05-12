@@ -93,15 +93,7 @@ class DeviceKeys(context: Context) {
                 Log.d(TAG,"Loading stored keys successful")
                 return true
             }
-        } catch (e: KeyStoreException) {
-            e.printStackTrace()
-        } catch (e: CertificateException) {
-            e.printStackTrace()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: UnrecoverableEntryException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         Log.d(TAG,"Loading stored keys failed")
